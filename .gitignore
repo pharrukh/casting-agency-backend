@@ -16,3 +16,4 @@ Thumbs.db
 local.settings.json
 
 .env
+setup.sh

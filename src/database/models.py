@@ -33,29 +33,29 @@ def setup_db(app, database_path=database_path_default):
 db_drop_and_create_all()
     drops the database tables and starts fresh
     can be used to initialize a clean database
-    !!NOTE you can change the database_filename variable to have multiple verisons of a database
 '''
 
 
 def db_drop_and_create_all():
+    base_url = 'https://www.normuradov.com/assets/casting-agency'
     db.drop_all()
     db.create_all()
     movie = Movie(
         title='The Godfather',
-        poster_url='https://www.normuradov.com/assets/casting-agency/the_godfather.png',
+        poster_url=f'{base_url}/the_godfather.png',
         release_date='1972-03-24'
     )
     movie.insert()
     actor_one = Actor(
         name='Marlon Brando',
-        picture_url='https://www.normuradov.com/assets/casting-agency/marlon_brando.png',
+        picture_url=f'{base_url}/marlon_brando.png',
         gender='M',
         date_of_birth='1924-04-03'
     )
     actor_one.insert()
     actor_two = Actor(
         name='Al Pacino',
-        picture_url='https://www.normuradov.com/assets/casting-agency/al_pacino.png',
+        picture_url=f'{base_url}/al_pacino.png',
         gender='M',
         date_of_birth='1940-04-25'
     )
@@ -147,4 +147,5 @@ class Actor(BaseModel, db.Model):
 
 def calculate_age(born):
     today = date.today()
-    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+    return (today.year - born.year -
+            ((today.month, today.day) < (born.month, born.day)))

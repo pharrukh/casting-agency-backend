@@ -1,4 +1,10 @@
-from flask import Flask,  request, jsonify, render_template, abort
+from flask import (
+    Flask,
+    request,
+    jsonify,
+    render_template,
+    abort
+)
 from flask_cors import CORS
 from .database.models import setup_db, Movie, Actor
 from .auth.auth import AuthError, requires_auth
@@ -7,7 +13,11 @@ app = Flask(__name__)
 setup_db(app)
 CORS(app)
 
-# db_drop_and_create_all()
+
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({'message': 'Welcome to My Casting Agency API.'})
+
 
 @app.route('/actors', methods=['GET'])
 @requires_auth('read:actor')
@@ -29,11 +39,17 @@ def get_actor(id):
 def create_actor():
     actor = request.get_json()
 
-    if 'name' not in actor or 'date_of_birth' not in actor or 'picture_url' not in actor or 'gender' not in actor:
+    if ('name' not in actor or
+        'date_of_birth' not in actor or
+        'picture_url' not in actor or
+            'gender' not in actor):
         abort(400)
 
     new_actor = Actor(
-        name=actor['name'], date_of_birth=actor['date_of_birth'], picture_url=actor['picture_url'], gender=actor['gender'])
+        name=actor['name'],
+        date_of_birth=actor['date_of_birth'],
+        picture_url=actor['picture_url'],
+        gender=actor['gender'])
     new_actor.insert()
 
     return jsonify({'success': True, 'actors': get_actors_short()})
@@ -97,7 +113,9 @@ def create_movie():
     movie = request.get_json()
 
     new_movie = Movie(
-        title=movie['title'], release_date=movie['release_date'], poster_url=movie['poster_url'])
+        title=movie['title'],
+        release_date=movie['release_date'],
+        poster_url=movie['poster_url'])
     new_movie.insert()
 
     return jsonify({'success': True, 'movies': get_movies_short()})
