@@ -1,5 +1,9 @@
 # casting-agency-backend
 
+## where the project lives
+
+`https://rampa-rampa.herokuapp.com/`
+
 ## start app
 
 `heroku local`
