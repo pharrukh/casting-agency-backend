@@ -3,8 +3,8 @@ import unittest
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, abort, jsonify
-from .src.api import app
-from database.models import setup_db, db_drop_and_create_all
+from src.api import app
+from src.database.models import setup_db, db_drop_and_create_all
 load_dotenv()
 
 executive_token = os.environ['EXECUTIVE_TOKEN']

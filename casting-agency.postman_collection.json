@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "f2bcc4a0-cb42-431e-afcf-552a289b4166",
+		"name": "casting-agency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "movies",
+			"item": [
+				{
+					"name": "movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/movies",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "movie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"poster_url\": \"https://www.normuradov.com/assets/casting-agency/the_godfather.png\",\n    \"release_date\": \"1973-03-24\",\n    \"title\": \"The Godfather II\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/movies",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "movie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/movies/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "movie",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/movies/5",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"movies",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "movie",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"release_date\":\"2020-01-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/movies/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "actors",
+			"item": [
+				{
+					"name": "actors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/actors",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date_of_birth\": \"1924-01-01\",\n    \"picture_url\": \"\",\n    \"gender\": \"M\",\n    \"name\": \"Marlon Brando\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/actors",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/actors/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/actors/3",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"actors",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actor",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date_of_birth\":\"1930-01-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/actors/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/health",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlF6WkJOekZHTkRGRU9UTTFOemxHTnpWR1JqQkRNVEZCTVRsRE9FRXpPREZEUkVZM1FqUXlRZyJ9.eyJpc3MiOiJodHRwczovL3BoYXJydWtoLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2MDcyZmUyMDRlYWZiZDAwNmRmNDVlODMiLCJhdWQiOiJjYXN0aW5nLWFnZW5jeS1hcGkiLCJpYXQiOjE2MTg3MzUwMTcsImV4cCI6MTYxODgyMTQxNywiYXpwIjoiZmFraG9DYjVxVzZBTGVoVlV3SURubklMR0cxUnVySHUiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTphY3RvciIsImNyZWF0ZTptb3ZpZSIsImRlbGV0ZTphY3RvciIsImRlbGV0ZTptb3ZpZSIsInJlYWQ6YWN0b3IiLCJyZWFkOm1vdmllIiwidXBkYXRlOmFjdG9yIiwidXBkYXRlOm1vdmllIl19.h6pMMiHG6GxPmO45NZYWgkxOD6m2PuVcesW_upJjhX0yPuqJ0NFwGQ2ytYhTWKMVjU4aJSsNF7A0JxkMcfE79Fz7F9hfPP5m4pisMNoweT4DTZFZWksO5aS-fqAk9D-m-pnyfSGV9iqVoc5jbMRTz4yKwiOHh-71ABMPc4ytG84j5TWhjlRMJFlj-hsBR0ucar5J6r5rVSa38jUmvGWiqnonoFnPY4cOEA1OzscSrkRMgY-8c7x8tgOJTbUBYX_FxMVOTkxEvjhSOUxZmmzJQ2sao2RyqQlz4cyN14teDExA4FuU-6bbImGx5WOsSiO-HKd9XNND1VvRO6IneRsDjQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "6f6257a7-3b19-43f0-89f0-f8e6f1f57fb4",
+			"key": "HOST",
+			"value": "https://rampa-rampa.herokuapp.com"
+		}
+	]
+}
