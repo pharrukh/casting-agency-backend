@@ -274,15 +274,27 @@ Sample response:
 }
 ```
 
-## roles
+## roles & scopes
 
 - Casting Assistant
-  - can view actors and movies
+  - read:movie
+  - read:actor
 - Casting Director
-  - manages actors
-  - can update movies
+  - read:movie
+  - read:actor
+  - update:movie
+  - update:actor
+  - delete:actor
+  - create:actor
 - Executive Director
-  - manages actors and movies
+  - read:movie
+  - update:movie
+  - delete:movie
+  - create:movie
+  - read:actor
+  - update:actor
+  - delete:actor
+  - create:actor
 
 ## deploying project to Heroku
 
