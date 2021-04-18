@@ -9,7 +9,6 @@ CORS(app)
 
 # db_drop_and_create_all()
 
-
 @app.route('/actors', methods=['GET'])
 @requires_auth('read:actor')
 def get_actors():

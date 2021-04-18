@@ -8,6 +8,7 @@ https://127.0.0.1/logout
 
 https://pharrukh.eu.auth0.com/authorize?audience=casting-agency-api&response_type=token&client_id=fakhoCb5qW6ALehVUwIDnnILGG1RurHu&redirect_uri=http://localhost:4200/tabs/user-page
 
+
 ## testing
 dropdb casting_agency_testing
 createdb casting_agency_testing

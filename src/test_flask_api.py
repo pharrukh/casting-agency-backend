@@ -6,7 +6,10 @@ from flask import Flask, request, abort, jsonify
 from api import app
 from database.models import setup_db, db_drop_and_create_all
 load_dotenv()
-token = os.environ['TOKEN']
+
+executive_token = os.environ['EXECUTIVE_TOKEN']
+director_token = os.environ['DIRECTOR_TOKEN']
+assistant_token = os.environ['ASSISTANT_TOKEN']
 
 
 class BasicTests(unittest.TestCase):
@@ -43,7 +46,7 @@ class BasicTests(unittest.TestCase):
 
     def test_get_movies(self):
         response = self.client().get(
-            '/movies', headers={'Authorization': f'Bearer {token}'})
+            '/movies', headers={'Authorization': f'Bearer {executive_token}'})
 
         self.assertEqual(response.status_code, 200)
 
@@ -52,29 +55,29 @@ class BasicTests(unittest.TestCase):
 
     def test_get_single_movie(self):
         response = self.client().get(
-            '/movies/1', headers={'Authorization': f'Bearer {token}'})
+            '/movies/1', headers={'Authorization': f'Bearer {executive_token}'})
 
         self.assertEqual(response.status_code, 200)
 
     def test_post_movie_create(self):
         response = self.client().post('/movies', json={'title': 'Godfather II', 'release_date': '1973-01-01',
                                                        'poster_url': 'https://www.normuradov.com/assets/casting-agency/the_godfather.png'},
-                                      headers={'Authorization': f'Bearer {token}'})
+                                      headers={'Authorization': f'Bearer {executive_token}'})
         self.assertEqual(response.status_code, 200)
 
     def test_patch_movie_update(self):
         response = self.client().patch('/movies/1', json={'title': 'Godfather...'},
-                                       headers={'Authorization': f'Bearer {token}'})
+                                       headers={'Authorization': f'Bearer {executive_token}'})
         self.assertEqual(response.status_code, 200)
 
     def test_delete_movie(self):
         response = self.client().delete(
-            '/movies/1', headers={'Authorization': f'Bearer {token}'})
+            '/movies/1', headers={'Authorization': f'Bearer {executive_token}'})
         self.assertEqual(response.status_code, 204)
 
     def test_get_actors(self):
         response = self.client().get(
-            '/actors', headers={'Authorization': f'Bearer {token}'})
+            '/actors', headers={'Authorization': f'Bearer {executive_token}'})
 
         self.assertEqual(response.status_code, 200)
 
@@ -83,24 +86,24 @@ class BasicTests(unittest.TestCase):
 
     def test_get_single_actor(self):
         response = self.client().get(
-            '/actors/1', headers={'Authorization': f'Bearer {token}'})
+            '/actors/1', headers={'Authorization': f'Bearer {executive_token}'})
 
         self.assertEqual(response.status_code, 200)
 
     def test_post_actor_create(self):
         response = self.client().post('/actors', json={'name': 'Nickolas Cage', 'date_of_birth': '1963-01-01', 'gender': 'M',
                                                        'picture_url': 'https://www.normuradov.com/assets/casting-agency/the_godfather.png'},
-                                      headers={'Authorization': f'Bearer {token}'})
+                                      headers={'Authorization': f'Bearer {executive_token}'})
         self.assertEqual(response.status_code, 200)
 
     def test_patch_actor_update(self):
         response = self.client().patch('/actors/1', json={'name': '-'},
-                                       headers={'Authorization': f'Bearer {token}'})
+                                       headers={'Authorization': f'Bearer {executive_token}'})
         self.assertEqual(response.status_code, 200)
 
     def test_delete_actors(self):
         response = self.client().delete(
-            '/actors/1', headers={'Authorization': f'Bearer {token}'})
+            '/actors/1', headers={'Authorization': f'Bearer {executive_token}'})
         self.assertEqual(response.status_code, 204)
 
 #############################
@@ -121,13 +124,51 @@ class BasicTests(unittest.TestCase):
 
     def test_bad_request(self):
         response = self.client().post('/actors', json={'name': 'Nickolas Cage'},
-                                      headers={'Authorization': f'Bearer {token}'})
+                                      headers={'Authorization': f'Bearer {executive_token}'})
         self.assertEqual(response.status_code, 400)
 
 #############################
 ######### RBAC ##############
 #############################
 
+    def test_assistant_can_get_movies(self):
+        response = self.client().get(
+            '/movies', headers={'Authorization': f'Bearer {assistant_token}'})
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_assistant_can_get_actors(self):
+        response = self.client().get(
+            '/actors', headers={'Authorization': f'Bearer {assistant_token}'})
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_assistant_can_not_delete_movie(self):
+        response = self.client().delete(
+            '/movies/1', headers={'Authorization': f'Bearer {assistant_token}'})
+        self.assertEqual(response.status_code, 403)
+
+    def test_director_can_get_movies(self):
+        response = self.client().get(
+            '/movies', headers={'Authorization': f'Bearer {director_token}'})
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_director_can_not_delete_movie(self):
+        response = self.client().delete(
+            '/movies/1', headers={'Authorization': f'Bearer {director_token}'})
+        self.assertEqual(response.status_code, 403)
+
+    def test_executive_can_get_movies(self):
+        response = self.client().get(
+            '/movies', headers={'Authorization': f'Bearer {executive_token}'})
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_executive_can_delete_movie(self):
+        response = self.client().delete(
+            '/movies/1', headers={'Authorization': f'Bearer {executive_token}'})
+        self.assertEqual(response.status_code, 204)
 
 if __name__ == "__main__":
     unittest.main()
